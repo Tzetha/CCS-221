@@ -1,5 +1,5 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import tensorflow as tf
-import streamlit
-import cv2
+numpy
+matplotlib.pyplot
+tensorflow
+streamlit
+opencv-python-headless
