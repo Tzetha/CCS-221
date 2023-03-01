@@ -1,7 +1,6 @@
+import streamlit as st
 import numpy as np
-import cv2
-import matplotlib.pyplot 
-import tensorflow
-import streamlit
+import matplotlib.pyplot as pl
+
 
 st.title("Hello")
