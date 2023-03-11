@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import streamlit as st
 
 from mpl_toolkits.mplot3d import axes3d
 from matplotlib import cm
