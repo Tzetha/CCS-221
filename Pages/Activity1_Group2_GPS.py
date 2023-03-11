@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import streamlit as st
 
 def DDALINE(x1, y1, x2, y2, color):
     dx = x2 - x1 
