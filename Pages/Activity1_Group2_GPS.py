@@ -19,8 +19,7 @@ def DDALINE(x1, y1, x2, y2, color):
         y1 += Ycoordinate   
     
     plt.plot(x3,y3,marker="o",markersize=5,markerfacecolor="blue")
-    plt.show()
-    
+    st.pyplot()
 
 def bresenham(x1, y1, x2, y2, color): 
    
@@ -57,8 +56,8 @@ def bresenham(x1, y1, x2, y2, color):
 
     plt.plot(xcords,ycords)
     plt.plot(x3,y3,marker="o",markersize=5,markerfacecolor="red")
-    plt.show()
-    
+    st.pyplot()
+
 def midpoint(x1, y1, x2, y2, color): 
    
     x, y = x1, y1
@@ -92,7 +91,7 @@ def midpoint(x1, y1, x2, y2, color):
         xcords.append(x)
         ycords.append(y)
 
-    print ("Midpoint of the line is:", x3)
+    st.write("Midpoint of the line is:", x3)
     plt.plot(x3,y3,marker="o",markersize=5,markerfacecolor="blue")
     plt.show() 
 
