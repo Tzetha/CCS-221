@@ -96,10 +96,10 @@ def midpoint(x1, y1, x2, y2, color):
     plt.show() 
 
 def main():
-    x = st.int(input("Enter X1: "))
-    y = st.int(input("Enter Y1: "))
-    xEnd = st.int(input("Enter X2: "))
-    yEnd = st.int(input("Enter Y2: "))
+    x = st.number_input("Enter X1: "))
+    y = st.number_input("Enter Y1: "))
+    xEnd = st.number_input("Enter X2: "))
+    yEnd = st.number_input("Enter Y2: "))
     color = "r."
     DDALINE(x,y,xEnd,yEnd,color)
     bresenham(x,y,xEnd, yEnd, color)
