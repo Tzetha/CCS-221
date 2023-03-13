@@ -1,112 +1,43 @@
-
-import streamlit as st
+import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
-
 import streamlit as st
-import matplotlib.pyplot as plt
 
+two_d_arr = np.array([[1,0,1], [0,1,0],[1,0,1]])
 
-def DDALine(x1, y1, x2, y2, color):
-    dx = x2 - x1
-    dy = y2 - y1
+def change(x, y, color, direction):
+    if direction == '1':
+        two_d_arr[x][y] = color
+        if x > 0:
+            change(x-1, y, color, direction)
+    elif direction == '2':
+        two_d_arr[x][y] = color
+        if x < two_d_arr.shape[0]-1:
+            change(x+1, y, color, direction)
+    elif direction == '3':
+        two_d_arr[x][y] = color
+        if y > 0:
+            change(x, y-1, color, direction)
+    elif direction == '4':
+        two_d_arr[x][y] = color
+        if y < two_d_arr.shape[1]-1:
+            change(x, y+1, color, direction)
+    else:
+        print('Please Try again')
     
-    if dx == 0 and dy == 0:
-        # both dx and dy are zero, so there is nothing to draw
-        st.warning("Starting and ending points are the same.")
-        return
-
-    steps = abs(dx) if abs(dx) > abs(dy) else abs(dy)
-
-    Xinc = float(dx / steps)
-    Yinc = float(dy / steps)
-
-    x = x1
-    y = y1
-    fig, ax = plt.subplots()
-    for i in range(0, int(steps+1)):
-        ax.plot(int(x), int(y), color)
-        x += Xinc
-        y += Yinc
-
-    ax.set_xlabel("X-Axis")
-    ax.set_ylabel("Y-Axis")
-    ax.set_title("DDA Algorithm")
-    st.pyplot(fig)
-
-
-def BresenhamLine(x1, y1, x2, y2, color):
-    
-    if x1 == x2 and y1 == y2:
-        return
-    
-    x, y = x1, y1
-    dx = abs(x2 - x1)
-    dy = abs(y2 - y1)
-    
-    if dx == 0:
-        # if dx is zero, draw a vertical line
-        ycoordinates = [y1, y2]
-        xcoordinates = [x1] * 2
-        fig, ax = plt.subplots()
-        ax.plot(xcoordinates, ycoordinates, color)
-        ax.set_xlabel("X-Axis")
-        ax.set_ylabel("Y-Axis")
-        ax.set_title("Bresenham Algorithm")
-        st.pyplot(fig)
-        return
-
-    gradient = float(dy / dx)
-
-    if gradient > 1:
-        dx, dy = dy, dx
-        x, y = y, x
-        x1, y1 = y1, x1
-        x2, y2 = y2, x2
-
-    p = 2 * dy - dx
-    xcoordinates = [x]
-    ycoordinates = [y]
-
-    for k in range(2, int(dx+2)):
-        if p > 0:
-            y = y + 1 if y < y2 else y - 1
-            p = p + 2 * (dy - dx)
-        else:
-            p = p + 2 * dy
-
-        x = x + 1 if x < x2 else x - 1
-        xcoordinates.append(x)
-        ycoordinates.append(y)
-
-    midX = (x1 + x2) // 2
-    midY = (y1 + y2) // 2
-    st.write("Midpoint of the line is at ({}, {})".format(midX, midY))
-
-    fig, ax = plt.subplots()
-    ax.scatter(xcoordinates, ycoordinates, color="r")
-    ax.set_xlabel("X-Axis")
-    ax.set_ylabel("Y-Axis")
-    ax.set_title("Bresenham Algorithm")
-    st.pyplot(fig)
-
+    img = plt.imshow(two_d_arr, interpolation='none', cmap='Pastel2')
+    img.set_clim([0,50])
+    plt.colorbar()
+    return img
 
 def main():
-    st.sidebar.title("Select Algorithm")
-    algorithm = st.sidebar.selectbox("Select Algorithm", ("DDA", "Bresenham"))
+    x_coordinates = st.number_input("X coordinates:", min_value=0, max_value=2, step=1)
+    y_coordinates = st.number_input("Y coordinates:", min_value=0, max_value=2, step=1)
+    colorvalue = st.selectbox("Select a Color Value (1-50)", options=list(range(1, 51)))
+    direction = st.selectbox("Direction", options=["1 for up", "2 for down", "3 for left", "4 for right"])
+    direction_mapping = {"1 for up": "1", "2 for down": "2", "3 for left": "3", "4 for right": "4"}
+    direction_code = direction_mapping[direction]
+    img = change(x_coordinates, y_coordinates, colorvalue, direction_code)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot()
 
-    x1 = st.sidebar.number_input("Enter the Starting point of x:")
-    y1 = st.sidebar.number_input("Enter the Starting point of y:")
-    x2 = st.sidebar.number_input("Enter the end point of x:")
-    y2 = st.sidebar.number_input("Enter the end point of y:")
-    color = "r"
-
-    if algorithm == "DDA":
-        color = "g."
-        DDALine(x1, y1, x2, y2, color)
-    else:
-        BresenhamLine(x1, y1, x2, y2,color)
-
-
-if __name__ == '__main__':
- main()
+main()
