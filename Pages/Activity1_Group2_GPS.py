@@ -1,8 +1,3 @@
-#Group 4
-#Members : John Paul Sapasap
-         # Jed Andrew Del Rosario
-         # Marc Joshua Escueta
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -16,7 +11,6 @@ def DDALine(x1, y1, x2, y2, color):
     dy = y2 - y1
     
     if dx == 0 and dy == 0:
-        # both dx and dy are zero, so there is nothing to draw
         st.warning("Starting and ending points are the same.")
         return
 
