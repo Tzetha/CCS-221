@@ -1,3 +1,4 @@
+
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -11,6 +12,7 @@ def DDALine(x1, y1, x2, y2, color):
     dy = y2 - y1
     
     if dx == 0 and dy == 0:
+        # both dx and dy are zero, so there is nothing to draw
         st.warning("Starting and ending points are the same.")
         return
 
@@ -54,7 +56,7 @@ def BresenhamLine(x1, y1, x2, y2, color):
         st.pyplot(fig)
         return
 
-    gradient = dy / float(dx)
+    gradient = float(dy / dx)
 
     if gradient > 1:
         dx, dy = dy, dx
@@ -66,7 +68,7 @@ def BresenhamLine(x1, y1, x2, y2, color):
     xcoordinates = [x]
     ycoordinates = [y]
 
-    for k in range(2, dx+2):
+    for k in range(2, int(dx+2)):
         if p > 0:
             y = y + 1 if y < y2 else y - 1
             p = p + 2 * (dy - dx)
@@ -82,7 +84,7 @@ def BresenhamLine(x1, y1, x2, y2, color):
     st.write("Midpoint of the line is at ({}, {})".format(midX, midY))
 
     fig, ax = plt.subplots()
-    ax.scatter(xcoordinates, ycoordinates, color="r.")
+    ax.scatter(xcoordinates, ycoordinates, color="r")
     ax.set_xlabel("X-Axis")
     ax.set_ylabel("Y-Axis")
     ax.set_title("Bresenham Algorithm")
@@ -97,24 +99,14 @@ def main():
     y1 = st.sidebar.number_input("Enter the Starting point of y:")
     x2 = st.sidebar.number_input("Enter the end point of x:")
     y2 = st.sidebar.number_input("Enter the end point of y:")
+    color = "r"
 
     if algorithm == "DDA":
         color = "g."
         DDALine(x1, y1, x2, y2, color)
-    elif algorithm == "Bresenham":
-          # if both dx and dy are zero, just plot a point
-        fig, ax = plt.subplots()
-        ax.scatter(x1, y1, color="r")
-        ax.set_xlabel("X-Axis") 
-        ax.set_ylabel("Y-Axis")
-        ax.set_title("Bresenham Algorithm")
-        st.pyplot(fig)
-        dx = BresenhamLine(x1, y1, x2, y2, color)
-        if dx == 0:
-            return
-        
-      
     else:
         BresenhamLine(x1, y1, x2, y2,color)
 
-main()
+
+if __name__ == '__main__':
+ main()
