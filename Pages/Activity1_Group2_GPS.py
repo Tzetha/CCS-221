@@ -2,8 +2,6 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import pandas as pd
-
-import streamlit as st
 import matplotlib.pyplot as plt
 
 
@@ -28,6 +26,11 @@ def DDALine(x1, y1, x2, y2, color):
         ax.plot(int(x), int(y), color)
         x += Xinc
         y += Yinc
+        
+    midX = (x1 + x2) // 2
+    midY = (y1 + y2) // 2
+    st.write("Midpoint of the line is at ({}, {})".format(midX, midY))
+    plt.plot(midX,midY, marker = 'o', markerfacecolor = "red")
 
     ax.set_xlabel("X-Axis")
     ax.set_ylabel("Y-Axis")
@@ -35,60 +38,43 @@ def DDALine(x1, y1, x2, y2, color):
     st.pyplot(fig)
 
 
-def BresenhamLine(x1, y1, x2, y2, color):
-    
-    if x1 == x2 and y1 == y2:
-        return
-    
-    x, y = x1, y1
-    dx = abs(x2 - x1)
-    dy = abs(y2 - y1)
-    
-    if dx == 0:
-        # if dx is zero, draw a vertical line
-        ycoordinates = [y1, y2]
-        xcoordinates = [x1] * 2
-        fig, ax = plt.subplots()
-        ax.plot(xcoordinates, ycoordinates, color)
-        ax.set_xlabel("X-Axis")
-        ax.set_ylabel("Y-Axis")
-        ax.set_title("Bresenham Algorithm")
-        st.pyplot(fig)
-        return
+st.title("Braseham Line/Midpoint")
 
-    gradient = float(dy / dx)
+def bres_line_mpoint(x1,y1,x2,y2):
+    x,y = x1, y1
+    dx = abs(x2 - x1) 
+    dy = abs(y2 - y1) 
+    slope = dy/float(dx)
 
-    if gradient > 1:
+    if slope > 1:
         dx, dy = dy, dx
         x, y = y, x
         x1, y1 = y1, x1
         x2, y2 = y2, x2
 
     p = 2 * dy - dx
-    xcoordinates = [x]
-    ycoordinates = [y]
+    xcoords = [x]
+    ycoords = [y]
 
-    for k in range(2, int(dx+2)):
+    xm = (x1 + x2)/2
+    ym = (y1 + y2)/2  # These lines of codes are the midpoint formula
+    st.write("\nX midpoint: ", xm)
+    st.write("Y midpoint: ", ym)
+
+    fig, ax = plt.subplots()
+    ax.plot(xm, ym, marker='o', markerfacecolor="green")
+    for i in range(1, int(dx)):
         if p > 0:
             y = y + 1 if y < y2 else y - 1
             p = p + 2 * (dy - dx)
         else:
-            p = p + 2 * dy
-
+            p = p + 2 * dy 
         x = x + 1 if x < x2 else x - 1
-        xcoordinates.append(x)
-        ycoordinates.append(y)
-
-    midX = (x1 + x2) // 2
-    midY = (y1 + y2) // 2
-    st.write("Midpoint of the line is at ({}, {})".format(midX, midY))
-
-    fig, ax = plt.subplots()
-    ax.scatter(xcoordinates, ycoordinates, color="r")
-    ax.set_xlabel("X-Axis")
-    ax.set_ylabel("Y-Axis")
-    ax.set_title("Bresenham Algorithm")
+        xcoords.append(x)
+        ycoords.append(y)
+    ax.plot(xcoords, ycoords)
     st.pyplot(fig)
+
 
 
 def main():
@@ -99,14 +85,12 @@ def main():
     y1 = st.sidebar.number_input("Enter the Starting point of y:")
     x2 = st.sidebar.number_input("Enter the end point of x:")
     y2 = st.sidebar.number_input("Enter the end point of y:")
-    color = "r"
 
     if algorithm == "DDA":
         color = "g."
         DDALine(x1, y1, x2, y2, color)
-    else:
-        BresenhamLine(x1, y1, x2, y2,color)
+    elif algorithm == "Bresenham":  
+        bres_line_mpoint(x1,y1,x2,y2)
+        
 
-
-if __name__ == '__main__':
- main()
+main()
