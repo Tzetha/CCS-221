@@ -5,6 +5,9 @@ import streamlit as st
 two_d_arr = np.array([[1,0,1], [0,1,0],[1,0,1]])
 
 def change(x, y, color, direction):
+    
+    two_d_arr[x][y] = color
+    
     img = plt.imshow(two_d_arr, interpolation='none', cmap='Pastel2')
     img.set_clim([0,50])
     plt.colorbar()
