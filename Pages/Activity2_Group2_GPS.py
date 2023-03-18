@@ -32,7 +32,7 @@ def change(x, y, color, direction):
 def main():
     x_coordinates = st.number_input("X coordinates:", min_value=0, max_value=2, step=1)
     y_coordinates = st.number_input("Y coordinates:", min_value=0, max_value=2, step=1)
-    colorvalue = st.selectbox("Select a Color Value (1-50)", options=list(range(1, 51)))
+    colorvalue = st.slider("Select a Color Value",0, 50, step = 10, key='my_slider')
     direction = st.selectbox("Direction", options=["1 for up", "2 for down", "3 for left", "4 for right"])
     direction_mapping = {"1 for up": "1", "2 for down": "2", "3 for left": "3", "4 for right": "4"}
     direction_code = direction_mapping[direction]
