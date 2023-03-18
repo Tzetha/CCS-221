@@ -4,7 +4,7 @@ import streamlit as st
 
 two_d_arr = np.array([[1,0,1], [0,1,0],[1,0,1]])
 
-def change(x, y, color, direction):
+def change(x, y, color):
     
     two_d_arr[x][y] = color
     
