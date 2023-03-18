@@ -6,7 +6,7 @@ two_d_arr = np.array([[1,0,1], [0,1,0],[1,0,1]])
 
 def change(x, y, color, direction):
      for i in range(len(two_d_arr)):
-    for j in range(len(two_d_arr[i])):
+      for j in range(len(two_d_arr[i])):
         two_d_arr[x][y] = color
     
     img = plt.imshow(two_d_arr, interpolation='none', cmap='Pastel2')
