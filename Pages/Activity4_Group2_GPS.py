@@ -26,11 +26,6 @@ def plt_basic_object_(points, counter):
 
     return fig
 
-x = st.slider("Enter for x:", -10, 10, step=1,key='my_slider1')
-y = st.slider("Enter for y:", -10, 10, step=1,key='my_slider2')
-z = st.slider("Enter for z:", -10, 10, step=1,key='my_slider3')
-
-
 def _pyramid_(bottom_center=(0, 0, 0)):
     bottom_center = np.array(bottom_center) 
 
