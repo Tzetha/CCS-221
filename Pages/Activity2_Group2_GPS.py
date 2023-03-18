@@ -4,15 +4,10 @@ import streamlit as st
 
 two_d_arr = np.array([[1,0,1], [0,1,0],[1,0,1]])
 
-def change(x, y, color, direction):
-     for i in range(len(two_d_arr)):
-      for j in range(len(two_d_arr[i])):
-        two_d_arr[x][y] = color
-    
-   img = plt.imshow(two_d_arr, interpolation='none', cmap='Pastel2')
-   img.set_clim([0,50])
-   plt.colorbar()
-   return img
+    img = plt.imshow(two_d_arr, interpolation='none', cmap='Pastel2')
+    img.set_clim([0,50])
+    plt.colorbar()
+    return img
 
 def main():
     x_coordinates = st.number_input("X coordinates:", min_value=0, max_value=2, step=1)
